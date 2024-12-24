@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Khen D.D'),
+          title: const Text('Khen D.D'),
           backgroundColor: Colors.amber,
         ),
         body: Padding(

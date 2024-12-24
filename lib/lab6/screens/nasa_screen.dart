@@ -4,19 +4,21 @@ import '../cubit/nasa_cubit.dart';
 import '../data/requests/api.dart';
 
 class NasaScreen extends StatelessWidget {
+  const NasaScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => NasaCubit(ApiService())..loadPhotos(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Фотографии Марса"),
+          title: const Text("Photo Mars"),
           centerTitle: true,
         ),
         body: BlocBuilder<NasaCubit, NasaState>(
           builder: (context, state) {
             if (state is NasaLoadingState) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (state is NasaLoadedState) {
               final photos = state.photos;
               return ListView.builder(
@@ -34,9 +36,9 @@ class NasaScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              bottomLeft: Radius.circular(15),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomLeft: Radius.circular(8),
                             ),
                             child: Image.network(
                               photo.imgSrc ?? '',
@@ -52,16 +54,11 @@ class NasaScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Ровер: ${photo.rover?.name ?? 'Неизвестно'}",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    "Дата: ${photo.earthDate ?? 'Неизвестно'}",
-                                    style: TextStyle(
-                                        fontSize: 16, color: Colors.grey[600]),
+                                    photo.rover?.name ?? 'Unknown',
+                                    style: const TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold
+                                    ),
                                   ),
                                 ],
                               ),
@@ -77,7 +74,7 @@ class NasaScreen extends StatelessWidget {
               return Center(
                 child: Text(
                   state.errorMessage,
-                  style: TextStyle(color: Colors.red, fontSize: 16),
+                  style: const TextStyle(color: Colors.red, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
               );
